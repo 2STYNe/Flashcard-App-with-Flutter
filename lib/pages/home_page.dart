@@ -12,9 +12,12 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         actions: const [Icon(Icons.more_vert)],
       ),
+
       drawer: const FDrawer(),
       body: const Column(
         children: [
+          CollectionCard(),
+          CollectionCard(),
           CollectionCard(),
         ],
       ),

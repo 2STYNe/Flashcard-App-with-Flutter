@@ -12,7 +12,7 @@ class CollectionPage extends StatelessWidget {
         child: GridView.count(
           crossAxisCount: 2,
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          children: List.generate(10, (index) => const FlashCard()),
+          children: List.generate(4, (index) => const FlashCard()),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
