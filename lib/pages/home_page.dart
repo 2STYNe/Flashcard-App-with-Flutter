@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
         actions: const [Icon(Icons.more_vert)],
       ),
       drawer: Drawer(
-          backgroundColor: Color.fromARGB(255, 34, 40, 104),
           child: Padding(
             padding: const EdgeInsets.only(top: 80.0),
             child: Column(
@@ -69,6 +68,8 @@ class HomePage extends StatelessWidget {
         ),
       body: const Column(
         children: [
+          CollectionCard(),
+          CollectionCard(),
           CollectionCard(),
           // FlashCard(),
         ],
