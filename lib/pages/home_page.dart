@@ -69,6 +69,8 @@ class HomePage extends StatelessWidget {
       body: const Column(
         children: [
           CollectionCard(),
+          CollectionCard(),
+          CollectionCard(),
           // FlashCard(),
         ],
       ),
