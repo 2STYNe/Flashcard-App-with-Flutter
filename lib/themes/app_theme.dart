@@ -14,6 +14,24 @@ class FAppTheme {
     colorScheme: FColorScheme.lightTheme,
     textTheme: FTextTheme.lightTheme,
     elevatedButtonTheme: FElevatedButtonTheme.lightTheme,
+    inputDecorationTheme: InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+            color: Color.fromARGB(255, 182, 212, 228), width: 1),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.blue,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      contentPadding: const EdgeInsets.all(7),
+      labelStyle: FTextTheme.lightTheme.bodyMedium?.copyWith(
+        color: Colors.grey[600],
+      ),
+      outlineBorder: const BorderSide(color: Colors.blueGrey, width: 2),
+    ),
     useMaterial3: true,
   );
 
