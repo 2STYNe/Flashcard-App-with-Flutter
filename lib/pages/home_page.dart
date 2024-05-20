@@ -1,6 +1,7 @@
 import 'package:flashcard_app_with_flutter/components/collection_card.dart';
-import 'package:flashcard_app_with_flutter/components/flashcard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
       body: const Column(
         children: [
           CollectionCard(),
-          FlashCard(),
+          // FlashCard(),
         ],
       ),
     );

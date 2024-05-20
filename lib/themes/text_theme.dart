@@ -5,8 +5,8 @@ class FTextTheme {
   FTextTheme._();
 
   static TextTheme lightTheme = TextTheme(
-    titleLarge: GoogleFonts.francoisOne(fontSize: 24, color: Colors.black),
-    titleMedium: GoogleFonts.francoisOne(fontSize: 20, color: Colors.black),
+    titleLarge: GoogleFonts.francoisOne(fontSize: 36, color: Colors.black),
+    titleMedium: GoogleFonts.francoisOne(fontSize: 24, color: Colors.black),
     titleSmall: GoogleFonts.francoisOne(fontSize: 16, color: Colors.black),
     bodyLarge: GoogleFonts.inter(fontSize: 16, color: Colors.black),
     bodyMedium: GoogleFonts.inter(fontSize: 14, color: Colors.black),

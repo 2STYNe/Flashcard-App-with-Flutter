@@ -8,22 +8,37 @@ class FlashCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      height: 200,
       width: 200,
+      height: 200,
       child: Card.filled(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: GridView.count(
-            crossAxisCount: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Title",
-                    style: textTheme.titleLarge,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "F. Side",
+                        style: textTheme.titleMedium,
+                      ),
+                      Text(
+                        "B. Side",
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
                   ),
-                  const Icon(Icons.more_vert),
+                  Container(
+                      margin: const EdgeInsets.only(top: 2),
+                      child: const Icon(Icons.more_vert)),
                 ],
               ),
               Icon(

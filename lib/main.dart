@@ -1,3 +1,4 @@
+import 'package:flashcard_app_with_flutter/pages/collections_page.dart';
 import 'package:flashcard_app_with_flutter/pages/home_page.dart';
 import 'package:flashcard_app_with_flutter/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       routes: {
         "/": (context) => const HomePage(),
+        "/collection": (context) => const CollectionPage(),
       },
     );
   }
