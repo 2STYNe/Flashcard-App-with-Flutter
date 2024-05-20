@@ -7,7 +7,7 @@ class FlashCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
+    return SizedBox(
       width: 200,
       height: 200,
       child: Card.filled(

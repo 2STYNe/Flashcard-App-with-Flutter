@@ -1,7 +1,5 @@
 import 'package:flashcard_app_with_flutter/components/collection_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,6 +20,11 @@ class HomePage extends StatelessWidget {
           CollectionCard(),
           // FlashCard(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: const Icon(Icons.add),
+        label: const Text("Add Collection"),
       ),
     );
   }
