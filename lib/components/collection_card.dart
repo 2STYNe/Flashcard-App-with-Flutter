@@ -9,7 +9,6 @@ class CollectionCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print("Clicked");
         Navigator.pushNamed(context, "/collection");
       },
       child: Container(

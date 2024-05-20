@@ -15,6 +15,11 @@ class CollectionPage extends StatelessWidget {
           children: List.generate(4, (index) => const FlashCard()),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: const Icon(Icons.add),
+        label: const Text("Add Card"),
+      ),
     );
   }
 }
