@@ -1,5 +1,6 @@
 import 'package:flashcard_app_with_flutter/themes/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class FDrawer extends StatelessWidget {
   const FDrawer({super.key});
@@ -26,23 +27,29 @@ class FDrawer extends StatelessWidget {
             ),
             Theme(
               data: FAppTheme.darkTheme,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 30.0),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30.0),
                 child: Column(
                   children: [
-                    ListTile(
+                    const ListTile(
                       leading: Icon(Icons.home),
                       title: Text("Home"),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(Icons.list),
                       title: Text("All Cards"),
                     ),
-                    ListTile(
-                      leading: Icon(Icons.settings),
-                      title: Text("Setting"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, "/settings");
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.settings),
+                        title: Text("Settings"),
+                      ),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(Icons.help),
                       title: Text("Help"),
                     ),

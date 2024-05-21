@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       darkTheme: FAppTheme.darkTheme,
       themeMode: ThemeMode.light,
       routes: {
-        "/": (context) => const SettingPage(),
+        "/": (context) => const HomePage(),
         "/settings": (context) => const SettingPage(),
         "/collection": (context) => const CollectionPage(),
       },
