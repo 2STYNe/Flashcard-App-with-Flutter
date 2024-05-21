@@ -1,3 +1,4 @@
+import 'package:flashcard_app_with_flutter/components/dialog_box.dart';
 import 'package:flashcard_app_with_flutter/components/flashcard.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,14 @@ class CollectionPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const FDialogBox(
+                    firstField: "Front Side", secondField: "Back Side");
+              });
+        },
         icon: const Icon(Icons.add),
         label: const Text("Add Card"),
       ),
