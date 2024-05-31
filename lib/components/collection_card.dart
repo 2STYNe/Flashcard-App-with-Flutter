@@ -12,7 +12,6 @@ class CollectionCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, "/collection");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -38,11 +37,11 @@ class CollectionCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Collection Name",
+                          collection.title,
                           style: textTheme.titleLarge,
                         ),
                         Text(
-                          "No. of Cards",
+                          "No. of Cards: ${collection.noOfFlashcards}",
                           style: textTheme.bodyLarge?.copyWith(
                             color: Colors.grey[700],
                           ),

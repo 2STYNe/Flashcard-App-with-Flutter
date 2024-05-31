@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class CardProvider extends ChangeNotifier {
   List<CardCollection> collections = [
-    CardCollection(title: "Dandelions"),
-    CardCollection(title: "Dandelions"),
-    CardCollection(title: "Dandelions"),
+    CardCollection(title: "Dandelions", desc: ""),
+    CardCollection(title: "Dandelions", desc: ""),
+    CardCollection(title: "Dandelions", desc: ""),
   ];
 
   void addCollection(CardCollection collection) {

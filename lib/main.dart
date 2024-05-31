@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         darkTheme: FAppTheme.darkTheme,
         themeMode: ThemeMode.light,
         routes: {
-          "/": (context) => const HomePage(),
+          "/": (context) => HomePage(),
           "/settings": (context) => const SettingPage(),
           // "/collection": (context) => const CollectionPage(),
           // "/practice": (context) => const PracticePage(),

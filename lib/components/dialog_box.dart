@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 class FDialogBox extends StatelessWidget {
   final String firstField;
   final String secondField;
+  final VoidCallback onSave;
+  final TextEditingController firstController;
+  final TextEditingController secondController;
   const FDialogBox({
     super.key,
     required this.firstField,
     required this.secondField,
+    required this.onSave,
+    required this.firstController,
+    required this.secondController,
   });
 
   @override
@@ -23,12 +29,14 @@ class FDialogBox extends StatelessWidget {
               Column(
                 children: [
                   TextField(
+                    controller: firstController,
                     decoration: InputDecoration(labelText: firstField),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   TextField(
+                    controller: secondController,
                     minLines: 3,
                     maxLines: 4,
                     decoration: InputDecoration(
@@ -43,14 +51,16 @@ class FDialogBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     child: const Text("Cancel"),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onSave,
                     child: const Text("Save"),
                   )
                 ],
