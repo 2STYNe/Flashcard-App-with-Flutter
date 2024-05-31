@@ -1,6 +1,5 @@
 import 'package:flashcard_app_with_flutter/themes/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FDrawer extends StatelessWidget {
   const FDrawer({super.key});

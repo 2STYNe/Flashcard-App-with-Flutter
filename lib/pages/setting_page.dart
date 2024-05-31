@@ -1,7 +1,5 @@
 import 'package:flashcard_app_with_flutter/components/settings_tile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -10,7 +8,7 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Settings",
         ),
       ),

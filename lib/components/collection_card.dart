@@ -1,7 +1,10 @@
+import 'package:flashcard_app_with_flutter/models/collection_model.dart';
+import 'package:flashcard_app_with_flutter/pages/collections_page.dart';
 import 'package:flutter/material.dart';
 
 class CollectionCard extends StatelessWidget {
-  const CollectionCard({super.key});
+  final CardCollection collection;
+  const CollectionCard({super.key, required this.collection});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +13,12 @@ class CollectionCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, "/collection");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CollectionPage(collection: collection),
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -47,7 +56,9 @@ class CollectionCard extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/practice");
+                  },
                   // color: Theme.of(context).colorScheme.secondary,
                   child: Text(
                     "Practice",
