@@ -1,17 +1,29 @@
+import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
 
-class PracticeCard extends StatelessWidget {
+class PracticeCard extends StatefulWidget {
   final String value;
+  final FlashCardData cardData;
   final VoidCallback onTap;
-  const PracticeCard({super.key, required this.value, required this.onTap});
+  const PracticeCard({
+    super.key,
+    required this.value,
+    required this.onTap,
+    required this.cardData,
+  });
 
+  @override
+  State<PracticeCard> createState() => _PracticeCardState();
+}
+
+class _PracticeCardState extends State<PracticeCard> {
+  bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
-        key: key,
         padding: const EdgeInsets.all(12.0),
         margin: const EdgeInsets.only(bottom: 10),
         constraints: const BoxConstraints.expand(),
@@ -31,16 +43,21 @@ class PracticeCard extends StatelessWidget {
             IconButton(
               tooltip: "Bookmark Flashcard",
               iconSize: 35,
-              isSelected: false,
+              isSelected: widget.cardData.bookmarked,
               selectedIcon: const Icon(Icons.bookmark),
-              onPressed: () {},
+              onPressed: () {
+                widget.cardData.toggleBookmark();
+                setState(() {
+                  isBookmarked = !isBookmarked;
+                });
+              },
               icon: const Icon(Icons.bookmark_outline),
               color: Theme.of(context).colorScheme.tertiary,
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.topLeft,
             ),
             Center(
                 child: Text(
-              value,
+              widget.value,
               style: textTheme.titleLarge,
             )),
             Row(

@@ -39,12 +39,12 @@ class _PracticePageState extends State<PracticePage> {
                 child: AnimatedCrossFade(
                   firstChild: PracticeCard(
                     value: widget.collection.flashcards[index].getFrontSide,
-                    key: const ValueKey(true),
+                    cardData: widget.collection.flashcards[index],
                     onTap: changeSide,
                   ),
                   secondChild: PracticeCard(
                     value: widget.collection.flashcards[index].getBackSide,
-                    key: const ValueKey(false),
+                    cardData: widget.collection.flashcards[index],
                     onTap: changeSide,
                   ),
                   crossFadeState: _showFrontSide

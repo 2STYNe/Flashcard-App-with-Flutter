@@ -149,7 +149,7 @@ class _FlashCardState extends State<FlashCard> {
                   isSelected: widget.cardData.bookmarked,
                   selectedIcon: const Icon(Icons.bookmark),
                   onPressed: () {
-                    widget.cardData.setBookmark = !isBookmarked;
+                    widget.cardData.toggleBookmark();
                     setState(() {
                       isBookmarked = !isBookmarked;
                     });
