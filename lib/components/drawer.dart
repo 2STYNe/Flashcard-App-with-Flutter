@@ -52,6 +52,16 @@ class FDrawer extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.pop(context);
+                        Navigator.pushNamed(context, "/bookmarks");
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.bookmark),
+                        title: Text("Bookmarks"),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, "/settings");
                       },
                       child: const ListTile(

@@ -2,12 +2,12 @@ import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
 
 class PracticeCard extends StatefulWidget {
-  final String value;
+  final bool isFrontSide;
   final FlashCardData cardData;
   final VoidCallback onTap;
   const PracticeCard({
     super.key,
-    required this.value,
+    required this.isFrontSide,
     required this.onTap,
     required this.cardData,
   });
@@ -56,10 +56,15 @@ class _PracticeCardState extends State<PracticeCard> {
               alignment: Alignment.topLeft,
             ),
             Center(
-                child: Text(
-              widget.value,
-              style: textTheme.titleLarge,
-            )),
+              child: Text(
+                widget.isFrontSide
+                    ? widget.cardData.getFrontSide
+                    : widget.cardData.getBackSide,
+                style: widget.isFrontSide
+                    ? textTheme.titleLarge
+                    : textTheme.displaySmall,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
