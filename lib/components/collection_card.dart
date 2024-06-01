@@ -58,10 +58,9 @@ class CollectionCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, "/practice");
                   },
-                  // color: Theme.of(context).colorScheme.secondary,
                   child: Text(
                     "Practice",
-                    style: textTheme.bodyLarge,
+                    style: textTheme.bodyLarge?.copyWith(color: Colors.white),
                   ),
                 )
               ],

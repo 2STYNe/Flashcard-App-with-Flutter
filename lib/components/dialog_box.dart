@@ -37,8 +37,8 @@ class FDialogBox extends StatelessWidget {
                   ),
                   TextField(
                     controller: secondController,
-                    minLines: 3,
-                    maxLines: 4,
+                    minLines: 1,
+                    maxLines: 3,
                     decoration: InputDecoration(
                         labelText: secondField, alignLabelWithHint: true),
                   ),
@@ -50,11 +50,13 @@ class FDialogBox extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
+                  OutlinedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Cancel"),
+                    child: const Text(
+                      "Cancel",
+                    ),
                   ),
                   const SizedBox(
                     width: 5,

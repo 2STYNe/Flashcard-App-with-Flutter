@@ -1,6 +1,5 @@
 import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FlashCard extends StatefulWidget {
   final FlashCardData cardData;

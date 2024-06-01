@@ -2,6 +2,7 @@ import 'package:flashcard_app_with_flutter/themes/appbar_theme.dart';
 import 'package:flashcard_app_with_flutter/themes/color_scheme.dart';
 import 'package:flashcard_app_with_flutter/themes/drawer_theme.dart';
 import 'package:flashcard_app_with_flutter/themes/elevated_button_theme.dart';
+import 'package:flashcard_app_with_flutter/themes/outlined_button_theme.dart';
 import 'package:flashcard_app_with_flutter/themes/text_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,11 @@ class FAppTheme {
       ),
       outlineBorder: const BorderSide(color: Colors.blueGrey, width: 2),
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Color(0xFF003049),
+      foregroundColor: Colors.white,
+    ),
+    outlinedButtonTheme: FOutlinedButtonTheme.lightTheme,
     useMaterial3: true,
   );
 
