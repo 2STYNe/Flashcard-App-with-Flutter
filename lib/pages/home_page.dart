@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
   final TextEditingController firstController = TextEditingController();
   final TextEditingController secondController = TextEditingController();
-
+  //TODO: Enable sorting or just simply delete the actions in the app bar
   @override
   Widget build(BuildContext context) {
     void onSave(CardProvider value) {

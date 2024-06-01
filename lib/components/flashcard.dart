@@ -15,6 +15,7 @@ class FlashCard extends StatefulWidget {
   @override
   State<FlashCard> createState() => _FlashCardState();
 }
+//TODO: Create a bookmarked flashcards page
 
 class _FlashCardState extends State<FlashCard> {
   bool isBookmarked = false;

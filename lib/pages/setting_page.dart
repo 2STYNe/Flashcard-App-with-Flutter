@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
-
+  //TODO: give functionality to the setting tiles
   @override
   Widget build(BuildContext context) {
     return Scaffold(

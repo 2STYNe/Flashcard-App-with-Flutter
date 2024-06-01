@@ -2,6 +2,7 @@ import 'package:flashcard_app_with_flutter/components/dialog_box.dart';
 import 'package:flashcard_app_with_flutter/models/card_provider.dart';
 import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flashcard_app_with_flutter/pages/collections_page.dart';
+import 'package:flashcard_app_with_flutter/pages/practice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -125,7 +126,16 @@ class CollectionCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/practice");
+                    // Navigator.pushNamed(context, "/practice");
+                    if (collection.flashcards.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PracticePage(collection: collection),
+                        ),
+                      );
+                    }
                   },
                   child: Text(
                     "Practice",

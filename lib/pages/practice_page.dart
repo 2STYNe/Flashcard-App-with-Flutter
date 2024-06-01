@@ -1,7 +1,22 @@
+import 'package:flashcard_app_with_flutter/components/practice_card.dart';
+import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flutter/material.dart';
 
-class PracticePage extends StatelessWidget {
-  const PracticePage({super.key});
+class PracticePage extends StatefulWidget {
+  final CardCollection collection;
+  const PracticePage({super.key, required this.collection});
+
+  @override
+  State<PracticePage> createState() => _PracticePageState();
+}
+
+class _PracticePageState extends State<PracticePage> {
+  bool _showFrontSide = true;
+  void changeSide() {
+    setState(() {
+      _showFrontSide = !_showFrontSide;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,93 +31,67 @@ class PracticePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.secondary,
-                    ],
+        child: PageView.builder(
+          itemCount: widget.collection.flashcards.length,
+          itemBuilder: (context, index) => Column(
+            children: [
+              Expanded(
+                child: AnimatedCrossFade(
+                  firstChild: PracticeCard(
+                    value: widget.collection.flashcards[index].getFrontSide,
+                    key: const ValueKey(true),
+                    onTap: changeSide,
                   ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      tooltip: "Bookmark Flashcard",
-                      iconSize: 35,
-                      isSelected: false,
-                      selectedIcon: const Icon(Icons.bookmark),
-                      onPressed: () {},
-                      icon: const Icon(Icons.bookmark_outline),
-                      color: Theme.of(context).colorScheme.tertiary,
-                      alignment: Alignment.bottomRight,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          iconSize: 35,
-                          icon: const Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          iconSize: 35,
-                          icon: const Icon(Icons.repeat),
-                        ),
-                      ],
-                    ),
-                  ],
+                  secondChild: PracticeCard(
+                    value: widget.collection.flashcards[index].getBackSide,
+                    key: const ValueKey(false),
+                    onTap: changeSide,
+                  ),
+                  crossFadeState: _showFrontSide
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 1200),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                FilledButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Theme.of(context).colorScheme.error,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Theme.of(context).colorScheme.error,
+                      ),
+                      foregroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
                     ),
-                    foregroundColor:
-                        const MaterialStatePropertyAll(Colors.white),
+                    child: const Text("Hard"),
                   ),
-                  child: const Text("Hard"),
-                ),
-                FilledButton(
-                  onPressed: () {},
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(255, 25, 190, 30),
+                  FilledButton(
+                    onPressed: () {},
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Color.fromARGB(255, 25, 190, 30),
+                      ),
+                      foregroundColor: MaterialStatePropertyAll(Colors.white),
                     ),
-                    foregroundColor: MaterialStatePropertyAll(Colors.white),
+                    child: const Text("Good"),
                   ),
-                  child: const Text("Good"),
-                ),
-                FilledButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Theme.of(context).colorScheme.secondary,
+                  FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Theme.of(context).colorScheme.secondary,
+                      ),
+                      foregroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
                     ),
-                    foregroundColor:
-                        const MaterialStatePropertyAll(Colors.white),
+                    child: const Text("Easy"),
                   ),
-                  child: const Text("Easy"),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
