@@ -38,6 +38,7 @@ class FAppTheme {
       foregroundColor: Colors.white,
     ),
     outlinedButtonTheme: FOutlinedButtonTheme.lightTheme,
+    popupMenuTheme: const PopupMenuThemeData(color: Colors.white),
     useMaterial3: true,
   );
 

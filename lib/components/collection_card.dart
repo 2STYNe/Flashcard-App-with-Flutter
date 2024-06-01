@@ -1,6 +1,9 @@
+import 'package:flashcard_app_with_flutter/components/dialog_box.dart';
+import 'package:flashcard_app_with_flutter/models/card_provider.dart';
 import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flashcard_app_with_flutter/pages/collections_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CollectionCard extends StatelessWidget {
   final CardCollection collection;
@@ -9,6 +12,45 @@ class CollectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    void onEdit(String title, String desc) {
+      Provider.of<CardProvider>(context, listen: false).setCollectionDetails(
+        collection,
+        title,
+        desc,
+      );
+      Navigator.of(context).pop();
+    }
+
+    void handleOnEdit() {
+      TextEditingController titleController = TextEditingController.fromValue(
+          TextEditingValue(text: collection.title));
+      TextEditingController descController = TextEditingController.fromValue(
+          TextEditingValue(text: collection.desc));
+      showDialog(
+        context: context,
+        builder: (context) => FDialogBox(
+          firstField: "Name",
+          secondField: "Description - Optional",
+          onSave: () {
+            onEdit(titleController.text, descController.text);
+          },
+          firstController: titleController,
+          secondController: descController,
+        ),
+      );
+    }
+
+    void handlePopup(String value) {
+      switch (value) {
+        case 'Edit':
+          handleOnEdit();
+          break;
+        case 'Delete':
+          Provider.of<CardProvider>(context, listen: false)
+              .removeCollection(collection);
+          break;
+      }
+    }
 
     return GestureDetector(
       onTap: () {
@@ -48,9 +90,36 @@ class CollectionCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Icon(Icons.more_vert),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Column(
+                        children: <Widget>[
+                          PopupMenuButton<String>(
+                            onSelected: handlePopup,
+                            itemBuilder: (BuildContext context) {
+                              return {
+                                [const Icon(Icons.edit), 'Edit'],
+                                [
+                                  Icon(
+                                    Icons.delete,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                  'Delete'
+                                ]
+                              }.map((List choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice[1],
+                                  child: ListTile(
+                                    leading: choice[0],
+                                    title: Text(choice[1]),
+                                  ),
+                                );
+                              }).toList();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

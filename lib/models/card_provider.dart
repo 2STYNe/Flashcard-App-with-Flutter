@@ -31,4 +31,10 @@ class CardProvider extends ChangeNotifier {
   List<FlashCardData> allCards() {
     return collections.expand((element) => element.flashcards).toList();
   }
+
+  void setCollectionDetails(
+      CardCollection collection, String title, String desc) {
+    collection.setDetails(title, desc);
+    notifyListeners();
+  }
 }

@@ -4,8 +4,8 @@ class CardCollection {
   List<FlashCardData> flashcards = [
     // FlashCardData(frontSide: "frontSide", backSide: "backSide")
   ];
-  final String title;
-  final String desc;
+  String title;
+  String desc;
   CardCollection({required this.title, required this.desc});
 
   get getFlashcards => flashcards;
@@ -17,5 +17,10 @@ class CardCollection {
 
   void removeFlashcard(FlashCardData flashcard) {
     flashcards.remove(flashcard);
+  }
+
+  void setDetails(String title, String desc) {
+    this.title = title;
+    this.desc = desc;
   }
 }

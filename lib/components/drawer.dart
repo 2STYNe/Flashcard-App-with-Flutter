@@ -30,9 +30,14 @@ class FDrawer extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 30.0),
                 child: Column(
                   children: [
-                    const ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text("Home"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text("Home"),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
