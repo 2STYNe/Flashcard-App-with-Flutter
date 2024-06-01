@@ -30,11 +30,14 @@ class CollectionPage extends StatelessWidget {
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(),
         body: Expanded(
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(
-              collection.flashcards.length,
-              (index) => FlashCard(cardData: collection.flashcards[index]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: List.generate(
+                collection.flashcards.length,
+                (index) => FlashCard(cardData: collection.flashcards[index]),
+              ),
             ),
           ),
         ),

@@ -8,7 +8,6 @@ class CardProvider extends ChangeNotifier {
     CardCollection(title: "Dandelions", desc: ""),
     CardCollection(title: "Dandelions", desc: ""),
   ];
-
   void addCollection(CardCollection collection) {
     collections.add(collection);
     notifyListeners();
@@ -27,5 +26,9 @@ class CardProvider extends ChangeNotifier {
   void removeCardFromCollection(CardCollection collection, FlashCardData card) {
     collection.removeFlashcard(card);
     notifyListeners();
+  }
+
+  List<FlashCardData> allCards() {
+    return collections.expand((element) => element.flashcards).toList();
   }
 }

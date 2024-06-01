@@ -1,4 +1,5 @@
 import 'package:flashcard_app_with_flutter/models/card_provider.dart';
+import 'package:flashcard_app_with_flutter/pages/allcards_page.dart';
 import 'package:flashcard_app_with_flutter/pages/home_page.dart';
 import 'package:flashcard_app_with_flutter/pages/setting_page.dart';
 import 'package:flashcard_app_with_flutter/themes/app_theme.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => HomePage(),
           "/settings": (context) => const SettingPage(),
+          "/allCards": (context) => const AllCardsPage(),
           // "/collection": (context) => const CollectionPage(),
           // "/practice": (context) => const PracticePage(),
         },

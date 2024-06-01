@@ -34,9 +34,15 @@ class FDrawer extends StatelessWidget {
                       leading: Icon(Icons.home),
                       title: Text("Home"),
                     ),
-                    const ListTile(
-                      leading: Icon(Icons.list),
-                      title: Text("All Cards"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, "/allCards");
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.list),
+                        title: Text("All Cards"),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {

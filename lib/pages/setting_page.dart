@@ -38,9 +38,14 @@ class SettingPage extends StatelessWidget {
                 settingDesc: "Change the font size",
               ),
               SettingsTile(
+                icon: Icons.import_export,
+                settingTitle: "Import/Export Cards",
+              ),
+              SettingsTile(
                 icon: Icons.privacy_tip,
                 settingTitle: "Privacy Policy",
               ),
+              SettingsTile(icon: Icons.info, settingTitle: "About"),
             ])
           ],
         ),
