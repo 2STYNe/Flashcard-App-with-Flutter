@@ -19,10 +19,11 @@ class CollectionPage extends StatelessWidget {
       FlashCardData newFlashcard = FlashCardData(
         frontSide: firstController.text,
         backSide: secondController.text,
+        parentCollection: collection,
       );
       firstController.clear();
       secondController.clear();
-      value.addCardToCollection(collection, newFlashcard);
+      value.addCardToCollection(newFlashcard);
       Navigator.of(context).pop();
     }
 
@@ -36,7 +37,10 @@ class CollectionPage extends StatelessWidget {
               crossAxisCount: 2,
               children: List.generate(
                 collection.flashcards.length,
-                (index) => FlashCard(cardData: collection.flashcards[index]),
+                (index) => FlashCard(
+                  cardData: collection.flashcards[index],
+                  parentCollection: collection,
+                ),
               ),
             ),
           ),

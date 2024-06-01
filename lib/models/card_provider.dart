@@ -18,13 +18,14 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addCardToCollection(CardCollection collection, FlashCardData card) {
-    collection.addFlashcard(card);
+  void addCardToCollection(FlashCardData card) {
+    card.parentCollection.addFlashcard(card);
+    // collection.addFlashcard(card);
     notifyListeners();
   }
 
-  void removeCardFromCollection(CardCollection collection, FlashCardData card) {
-    collection.removeFlashcard(card);
+  void removeCardFromCollection(FlashCardData card) {
+    card.parentCollection.removeFlashcard(card);
     notifyListeners();
   }
 
@@ -35,6 +36,16 @@ class CardProvider extends ChangeNotifier {
   void setCollectionDetails(
       CardCollection collection, String title, String desc) {
     collection.setDetails(title, desc);
+    notifyListeners();
+  }
+
+  void setFlashCardDetails(
+    FlashCardData flashcard,
+    String frontSide,
+    String backSide,
+  ) {
+    flashcard.setFrontSide = frontSide;
+    flashcard.setBackSide = backSide;
     notifyListeners();
   }
 }

@@ -1,10 +1,16 @@
+import 'package:flashcard_app_with_flutter/components/dialog_box.dart';
+import 'package:flashcard_app_with_flutter/models/card_provider.dart';
+import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlashCard extends StatefulWidget {
   final FlashCardData cardData;
+  final CardCollection parentCollection;
 
-  const FlashCard({super.key, required this.cardData});
+  const FlashCard(
+      {super.key, required this.cardData, required this.parentCollection});
 
   @override
   State<FlashCard> createState() => _FlashCardState();
@@ -15,15 +21,60 @@ class _FlashCardState extends State<FlashCard> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    void onEdit(String title, String desc) {
+      Provider.of<CardProvider>(context, listen: false).setFlashCardDetails(
+        widget.cardData,
+        title,
+        desc,
+      );
+      Navigator.of(context).pop();
+    }
+
+    void handleOnEdit() {
+      TextEditingController fSideController = TextEditingController.fromValue(
+        TextEditingValue(text: widget.cardData.getFrontSide),
+      );
+      TextEditingController bSideController = TextEditingController.fromValue(
+        TextEditingValue(text: widget.cardData.getBackSide),
+      );
+      showDialog(
+        context: context,
+        builder: (context) => FDialogBox(
+          firstField: "Front Side",
+          secondField: "Back Side",
+          onSave: () {
+            onEdit(fSideController.text, bSideController.text);
+          },
+          firstController: fSideController,
+          secondController: bSideController,
+        ),
+      );
+    }
+
+    void handlePopup(String value) {
+      switch (value) {
+        case 'Edit':
+          handleOnEdit();
+          break;
+        case 'Delete':
+          Provider.of<CardProvider>(context, listen: false)
+              .removeCardFromCollection(
+            widget.cardData,
+          );
+          break;
+      }
+    }
 
     return SizedBox(
       width: 200,
       height: 300,
       child: Card.filled(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-            vertical: 10.0,
+          padding: const EdgeInsets.only(
+            left: 15.0,
+            top: 10.0,
+            bottom: 10.0,
+            right: 5.0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -61,29 +112,50 @@ class _FlashCardState extends State<FlashCard> {
                         ],
                       ),
                     ),
-                    Container(
-                        margin: const EdgeInsets.only(top: 15),
-                        child: const Icon(Icons.more_vert)),
+                    Column(
+                      children: <Widget>[
+                        PopupMenuButton<String>(
+                          onSelected: handlePopup,
+                          itemBuilder: (BuildContext context) {
+                            return {
+                              [const Icon(Icons.edit), 'Edit'],
+                              [
+                                Icon(
+                                  Icons.delete,
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                ),
+                                'Delete'
+                              ]
+                            }.map((List choice) {
+                              return PopupMenuItem<String>(
+                                value: choice[1],
+                                child: ListTile(
+                                  leading: choice[0],
+                                  title: Text(choice[1]),
+                                ),
+                              );
+                            }).toList();
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
               Flexible(
-                child: SizedBox(
-                  width: 40,
-                  child: IconButton(
-                    tooltip: "Bookmark Flashcard",
-                    isSelected: widget.cardData.bookmarked,
-                    selectedIcon: const Icon(Icons.bookmark),
-                    onPressed: () {
-                      widget.cardData.setBookmark = !isBookmarked;
-                      setState(() {
-                        isBookmarked = !isBookmarked;
-                      });
-                    },
-                    icon: const Icon(Icons.bookmark_outline),
-                    color: Theme.of(context).colorScheme.tertiary,
-                    alignment: Alignment.bottomRight,
-                  ),
+                child: IconButton(
+                  tooltip: "Bookmark Flashcard",
+                  isSelected: widget.cardData.bookmarked,
+                  selectedIcon: const Icon(Icons.bookmark),
+                  onPressed: () {
+                    widget.cardData.setBookmark = !isBookmarked;
+                    setState(() {
+                      isBookmarked = !isBookmarked;
+                    });
+                  },
+                  icon: const Icon(Icons.bookmark_outline),
+                  color: Theme.of(context).colorScheme.tertiary,
+                  alignment: Alignment.bottomRight,
                 ),
               ),
             ],

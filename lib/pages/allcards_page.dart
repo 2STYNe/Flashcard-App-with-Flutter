@@ -22,10 +22,12 @@ class AllCardsPage extends StatelessWidget {
             child: GridView.count(
               crossAxisCount: 2,
               children: List.generate(
-                  allCards.length,
-                  (index) => FlashCard(
-                        cardData: allCards[index],
-                      )),
+                allCards.length,
+                (index) => FlashCard(
+                  cardData: allCards[index],
+                  parentCollection: allCards[index].parentCollection,
+                ),
+              ),
             ),
           ),
         ),
