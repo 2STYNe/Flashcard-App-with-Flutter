@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class CardProvider extends ChangeNotifier {
   final collectionBox = Hive.box<CardCollection>("card_collection");
   final cardBox = Hive.box<FlashCardData>("flashcard_data");
+
   List<CardCollection> collections = [];
 
   void loadData() {
@@ -17,7 +18,6 @@ class CardProvider extends ChangeNotifier {
     await collectionBox.add(collection);
 
     collections.add(collection);
-    // updateDatabase();
     notifyListeners();
   }
 
@@ -32,20 +32,10 @@ class CardProvider extends ChangeNotifier {
     await cardBox.add(card);
     collection.flashcards.add(card);
     collection.save();
-    print(collection.flashcards);
     notifyListeners();
   }
 
-  // void removeCardFromCollection(CardCollection collection, FlashCardData card) {
   void removeCardFromCollection(FlashCardData card) async {
-    // List<FlashCardData> tempList = [...collection.flashcards];
-    // tempList.remove(card);
-    // collection.flashcards = tempList;
-    // updateDatabase();
-    // cardBox.delete(card);
-    // collection.flashcards.remove(card);
-    // collection.save();
-
     await card.delete();
     notifyListeners();
   }
@@ -58,7 +48,6 @@ class CardProvider extends ChangeNotifier {
       CardCollection collection, String title, String desc) {
     collection.setDetails(title, desc);
     collection.save();
-    // updateDatabase();
     notifyListeners();
   }
 
@@ -70,16 +59,6 @@ class CardProvider extends ChangeNotifier {
     flashcard.setFrontSide = frontSide;
     flashcard.setBackSide = backSide;
     flashcard.save();
-    // updateDatabase();
     notifyListeners();
-  }
-
-  void updateDatabase() async {
-    await collectionBox.clear();
-
-    print("Works here too");
-    await collectionBox.addAll(collections);
-
-    print("Hello there");
   }
 }
