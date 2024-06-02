@@ -1,21 +1,18 @@
 import 'package:flashcard_app_with_flutter/components/dialog_box.dart';
 import 'package:flashcard_app_with_flutter/models/card_provider.dart';
-import 'package:flashcard_app_with_flutter/models/collection_model.dart';
+// import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FlashCard extends StatefulWidget {
   final FlashCardData cardData;
-  final CardCollection parentCollection;
 
-  const FlashCard(
-      {super.key, required this.cardData, required this.parentCollection});
+  const FlashCard({super.key, required this.cardData});
 
   @override
   State<FlashCard> createState() => _FlashCardState();
 }
-//TODO: Create a bookmarked flashcards page
 
 class _FlashCardState extends State<FlashCard> {
   bool isBookmarked = false;
@@ -60,6 +57,7 @@ class _FlashCardState extends State<FlashCard> {
         case 'Delete':
           Provider.of<CardProvider>(context, listen: false)
               .removeCardFromCollection(
+            // widget.parentCollection,
             widget.cardData,
           );
           break;

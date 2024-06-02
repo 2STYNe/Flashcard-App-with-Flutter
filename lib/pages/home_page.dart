@@ -6,11 +6,28 @@ import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final TextEditingController firstController = TextEditingController();
+
   final TextEditingController secondController = TextEditingController();
-  //TODO: Enable sorting or just simply delete the actions in the app bar
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        Provider.of<CardProvider>(context, listen: false).loadData();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     void onSave(CardProvider value) {
@@ -26,9 +43,7 @@ class HomePage extends StatelessWidget {
 
     return Consumer<CardProvider>(
       builder: (context, value, child) => Scaffold(
-        appBar: AppBar(
-          actions: const [Icon(Icons.more_vert)],
-        ),
+        appBar: AppBar(),
         drawer: const FDrawer(),
         // body: Text("Hello there"),
         body: ListView.builder(

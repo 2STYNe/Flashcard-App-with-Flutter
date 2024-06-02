@@ -1,23 +1,31 @@
-import 'package:flashcard_app_with_flutter/models/collection_model.dart';
+import 'package:hive/hive.dart';
 
-class FlashCardData {
-  String _frontSide;
-  String _backSide;
+part 'flashcard_model.g.dart';
+
+@HiveType(typeId: 1)
+class FlashCardData extends HiveObject {
+  @HiveField(0)
+  String frontSide;
+
+  @HiveField(1)
+  String backSide;
+
+  @HiveField(2)
   bool isBookmarked;
-  final CardCollection parentCollection;
+
   FlashCardData({
-    required String frontSide,
-    required String backSide,
-    required this.parentCollection,
+    required this.frontSide,
+    required this.backSide,
     this.isBookmarked = false,
-  })  : _backSide = backSide,
-        _frontSide = frontSide;
+  });
+
   get bookmarked => isBookmarked;
-  set setFrontSide(value) => _frontSide = value;
-  set setBackSide(value) => _backSide = value;
-  get getFrontSide => _frontSide;
-  get getBackSide => _backSide;
+  set setFrontSide(value) => frontSide = value;
+  set setBackSide(value) => backSide = value;
+  get getFrontSide => frontSide;
+  get getBackSide => backSide;
   void toggleBookmark() {
     isBookmarked = !isBookmarked;
+    save();
   }
 }

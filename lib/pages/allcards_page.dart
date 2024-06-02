@@ -16,17 +16,14 @@ class AllCardsPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("All Cards"),
         ),
-        body: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(
-                allCards.length,
-                (index) => FlashCard(
-                  cardData: allCards[index],
-                  parentCollection: allCards[index].parentCollection,
-                ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: List.generate(
+              allCards.length,
+              (index) => FlashCard(
+                cardData: allCards[index],
               ),
             ),
           ),

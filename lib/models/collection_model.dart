@@ -1,12 +1,25 @@
 import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
+import 'package:hive/hive.dart';
 
-class CardCollection {
-  List<FlashCardData> flashcards = [
-    // FlashCardData(frontSide: "frontSide", backSide: "backSide")
-  ];
+part 'collection_model.g.dart';
+
+@HiveType(typeId: 0)
+class CardCollection extends HiveObject {
+  @HiveField(0)
+  HiveList<FlashCardData> flashcards = HiveList(
+    Hive.box<FlashCardData>('flashcard_data'),
+  );
+
+  @HiveField(1)
   String title;
+
+  @HiveField(2)
   String desc;
-  CardCollection({required this.title, required this.desc});
+
+  CardCollection({
+    required this.title,
+    required this.desc,
+  });
 
   get getFlashcards => flashcards;
   get noOfFlashcards => flashcards.length;

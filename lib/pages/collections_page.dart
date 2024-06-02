@@ -19,28 +19,23 @@ class CollectionPage extends StatelessWidget {
       FlashCardData newFlashcard = FlashCardData(
         frontSide: firstController.text,
         backSide: secondController.text,
-        parentCollection: collection,
       );
       firstController.clear();
       secondController.clear();
-      value.addCardToCollection(newFlashcard);
-      Navigator.of(context).pop();
+      value.addCardToCollection(collection, newFlashcard);
     }
 
     return Consumer<CardProvider>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(),
-        body: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(
-                collection.flashcards.length,
-                (index) => FlashCard(
-                  cardData: collection.flashcards[index],
-                  parentCollection: collection,
-                ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: List.generate(
+              collection.flashcards.length,
+              (index) => FlashCard(
+                cardData: collection.flashcards[index],
               ),
             ),
           ),

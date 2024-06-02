@@ -1,31 +1,52 @@
 import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 import 'package:flashcard_app_with_flutter/models/flashcard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CardProvider extends ChangeNotifier {
-  List<CardCollection> collections = [
-    CardCollection(title: "Dandelions", desc: ""),
-    CardCollection(title: "Dandelions", desc: ""),
-    CardCollection(title: "Dandelions", desc: ""),
-  ];
-  void addCollection(CardCollection collection) {
-    collections.add(collection);
+  final collectionBox = Hive.box<CardCollection>("card_collection");
+  final cardBox = Hive.box<FlashCardData>("flashcard_data");
+  List<CardCollection> collections = [];
+
+  void loadData() {
+    collections = collectionBox.values.toList();
     notifyListeners();
   }
 
-  void removeCollection(CardCollection collection) {
+  void addCollection(CardCollection collection) async {
+    await collectionBox.add(collection);
+
+    collections.add(collection);
+    // updateDatabase();
+    notifyListeners();
+  }
+
+  void removeCollection(CardCollection collection) async {
+    await collection.delete();
     collections.remove(collection);
     notifyListeners();
   }
 
-  void addCardToCollection(FlashCardData card) {
-    card.parentCollection.addFlashcard(card);
-    // collection.addFlashcard(card);
+  void addCardToCollection(
+      CardCollection collection, FlashCardData card) async {
+    await cardBox.add(card);
+    collection.flashcards.add(card);
+    collection.save();
+    print(collection.flashcards);
     notifyListeners();
   }
 
-  void removeCardFromCollection(FlashCardData card) {
-    card.parentCollection.removeFlashcard(card);
+  // void removeCardFromCollection(CardCollection collection, FlashCardData card) {
+  void removeCardFromCollection(FlashCardData card) async {
+    // List<FlashCardData> tempList = [...collection.flashcards];
+    // tempList.remove(card);
+    // collection.flashcards = tempList;
+    // updateDatabase();
+    // cardBox.delete(card);
+    // collection.flashcards.remove(card);
+    // collection.save();
+
+    await card.delete();
     notifyListeners();
   }
 
@@ -36,6 +57,8 @@ class CardProvider extends ChangeNotifier {
   void setCollectionDetails(
       CardCollection collection, String title, String desc) {
     collection.setDetails(title, desc);
+    collection.save();
+    // updateDatabase();
     notifyListeners();
   }
 
@@ -46,6 +69,17 @@ class CardProvider extends ChangeNotifier {
   ) {
     flashcard.setFrontSide = frontSide;
     flashcard.setBackSide = backSide;
+    flashcard.save();
+    // updateDatabase();
     notifyListeners();
+  }
+
+  void updateDatabase() async {
+    await collectionBox.clear();
+
+    print("Works here too");
+    await collectionBox.addAll(collections);
+
+    print("Hello there");
   }
 }

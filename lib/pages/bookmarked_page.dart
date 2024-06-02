@@ -14,23 +14,27 @@ class BookmarksPage extends StatelessWidget {
     return Consumer<CardProvider>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
-          title: const Text("Bookmarked Cards"),
+          title: const Text("Bookmarks"),
         ),
-        body: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(
-                bookmarkedCards.length,
-                (index) => FlashCard(
-                  cardData: bookmarkedCards[index],
-                  parentCollection: bookmarkedCards[index].parentCollection,
+        body: bookmarkedCards.isEmpty
+            ? Center(
+                child: Text(
+                  "No bookmarked Flashcards",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  children: List.generate(
+                    bookmarkedCards.length,
+                    (index) => FlashCard(
+                      cardData: bookmarkedCards[index],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
