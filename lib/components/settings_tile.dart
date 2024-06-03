@@ -4,17 +4,19 @@ class SettingsTile extends StatelessWidget {
   final IconData icon;
   final String settingTitle;
   final String settingDesc;
+  final VoidCallback onTap;
   const SettingsTile({
     super.key,
     required this.icon,
     required this.settingTitle,
+    required this.onTap,
     this.settingDesc = "",
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.symmetric(vertical: 3),

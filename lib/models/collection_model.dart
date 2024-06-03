@@ -36,4 +36,25 @@ class CardCollection extends HiveObject {
     this.title = title;
     this.desc = desc;
   }
+
+  CardCollection.fromJson(Map<String, dynamic> json)
+      : title = json['title'] ?? "",
+        desc = json['desc'] ?? "" {
+    List<dynamic> flashcardsFromJson = json['flashcards'];
+    List<FlashCardData> temp = flashcardsFromJson
+        .map(
+          (e) => FlashCardData.fromJson(e),
+        )
+        .toList();
+
+    flashcards = HiveList(
+      Hive.box<FlashCardData>('flashcard_data'),
+      objects: temp,
+    );
+  }
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'desc': desc,
+        'flashcards': flashcards,
+      };
 }

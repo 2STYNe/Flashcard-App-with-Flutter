@@ -21,6 +21,12 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addCollections(List<CardCollection> newCollections) async {
+    await collectionBox.addAll(newCollections);
+    collections.addAll(newCollections);
+    notifyListeners();
+  }
+
   void removeCollection(CardCollection collection) async {
     await collection.delete();
     collections.remove(collection);

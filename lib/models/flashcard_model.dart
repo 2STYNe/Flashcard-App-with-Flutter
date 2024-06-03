@@ -28,4 +28,17 @@ class FlashCardData extends HiveObject {
     isBookmarked = !isBookmarked;
     save();
   }
+
+  FlashCardData.fromJson(Map<String, dynamic> json)
+      : frontSide = json['frontSide'],
+        backSide = json['backSide'],
+        isBookmarked = json['isBookmarked'] {
+    Hive.box<FlashCardData>("flashcard_data").add(this);
+  }
+
+  Map<String, dynamic> toJson() => {
+        'frontSide': frontSide,
+        'backSide': backSide,
+        'isBookmarked': isBookmarked,
+      };
 }
