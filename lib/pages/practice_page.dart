@@ -11,10 +11,18 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  bool _showFrontSide = true;
-  void changeSide() {
+  late List<bool> _showFrontSide;
+
+  @override
+  void initState() {
+    super.initState();
+    _showFrontSide =
+        List.generate(widget.collection.flashcards.length, (index) => true);
+  }
+
+  void changeSide(int index) {
     setState(() {
-      _showFrontSide = !_showFrontSide;
+      _showFrontSide[index] = !_showFrontSide[index];
     });
   }
 
@@ -29,70 +37,98 @@ class _PracticePageState extends State<PracticePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: PageView.builder(
-          itemCount: widget.collection.flashcards.length,
-          itemBuilder: (context, index) => Column(
-            children: [
-              Expanded(
-                child: AnimatedCrossFade(
-                  firstChild: PracticeCard(
-                    isFrontSide: true,
-                    cardData: widget.collection.flashcards[index],
-                    onTap: changeSide,
-                  ),
-                  secondChild: PracticeCard(
-                    isFrontSide: false,
-                    cardData: widget.collection.flashcards[index],
-                    onTap: changeSide,
-                  ),
-                  crossFadeState: _showFrontSide
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: const Duration(milliseconds: 1200),
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: PageView.builder(
+                itemCount: widget.collection.flashcards.length,
+                itemBuilder: (context, index) => Column(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => changeSide(index),
+                        child: AnimatedCrossFade(
+                          layoutBuilder: (topChild, topChildKey, bottomChild,
+                              bottomChildKey) {
+                            return Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Positioned(
+                                  key: bottomChildKey,
+                                  child: bottomChild,
+                                ),
+                                Positioned(
+                                  key: topChildKey,
+                                  child: topChild,
+                                ),
+                              ],
+                            );
+                          },
+                          firstChild: PracticeCard(
+                            isFrontSide: true,
+                            cardData: widget.collection.flashcards[index],
+                          ),
+                          secondChild: PracticeCard(
+                            isFrontSide: false,
+                            cardData: widget.collection.flashcards[index],
+                          ),
+                          crossFadeState: _showFrontSide[index]
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          duration: const Duration(milliseconds: 1200),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FilledButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.error,
+                              ),
+                              foregroundColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                            ),
+                            child: const Text("Hard"),
+                          ),
+                          FilledButton(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                Color.fromARGB(255, 25, 190, 30),
+                              ),
+                              foregroundColor:
+                                  MaterialStatePropertyAll(Colors.white),
+                            ),
+                            child: const Text("Good"),
+                          ),
+                          FilledButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.secondary,
+                              ),
+                              foregroundColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                            ),
+                            child: const Text("Easy"),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  FilledButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.error,
-                      ),
-                      foregroundColor:
-                          const MaterialStatePropertyAll(Colors.white),
-                    ),
-                    child: const Text("Hard"),
-                  ),
-                  FilledButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Color.fromARGB(255, 25, 190, 30),
-                      ),
-                      foregroundColor: MaterialStatePropertyAll(Colors.white),
-                    ),
-                    child: const Text("Good"),
-                  ),
-                  FilledButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.secondary,
-                      ),
-                      foregroundColor:
-                          const MaterialStatePropertyAll(Colors.white),
-                    ),
-                    child: const Text("Easy"),
-                  ),
-                ],
-              )
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
