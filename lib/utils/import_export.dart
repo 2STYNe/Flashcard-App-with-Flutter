@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flashcard_app_with_flutter/models/collection_model.dart';
 
 class ImportExportUtils {
-  static Future<void> exportCardCollections(
+  static Future<String> exportCardCollections(
       List<CardCollection> cardCollection) async {
     try {
       String jsonString =
@@ -22,16 +22,16 @@ class ImportExportUtils {
         // File outputFile = File(outputFilePath);
 
         // outputFile.writeAsStringSync(jsonString);
-        print('Export successful!');
+        return 'Export Successful!';
       } else {
-        print('Export cancelled');
+        return 'Export Cancelled';
       }
     } catch (e) {
-      print('Error exporting CardCollection: $e');
+      return 'Error exporting CardCollection: $e';
     }
   }
 
-  static Future<List<CardCollection>?> importCardCollections() async {
+  static Future<dynamic> importCardCollections() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -48,11 +48,11 @@ class ImportExportUtils {
         return jsonList.map((e) => CardCollection.fromJson(e)).toList();
       } else {
         print('Import cancelled');
-        return null;
+        return 'Import cancelled';
       }
     } catch (e) {
       print('Error importing CardCollection: $e');
-      return null;
+      return 'Error importing CardCollection: $e';
     }
   }
 }

@@ -13,6 +13,31 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     CardProvider cardProvider = Provider.of<CardProvider>(context);
     List<CardCollection> collections = cardProvider.collections;
+    void importCards() async {
+      dynamic result = await ImportExportUtils.importCardCollections();
+      var snackbar;
+      if (result is List<CardCollection>) {
+        cardProvider.addCollections(result);
+        snackbar = const SnackBar(
+          content: Text("Import Successful"),
+        );
+      } else if (result is String) {
+        snackbar = SnackBar(
+          content: Text(result),
+        );
+      }
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+
+    void exportCards() async {
+      String message =
+          await ImportExportUtils.exportCardCollections(collections);
+      final snackbar = SnackBar(
+        content: Text(message),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -51,19 +76,14 @@ class SettingPage extends StatelessWidget {
               SettingsTile(
                 icon: Icons.download,
                 settingTitle: "Import Cards",
-                onTap: () async {
-                  List<CardCollection>? imported =
-                      await ImportExportUtils.importCardCollections();
-                  if (imported != null) {
-                    cardProvider.addCollections(imported);
-                  }
-                },
+                onTap: importCards,
               ),
               SettingsTile(
                 icon: Icons.upload,
                 settingTitle: "Export Cards",
-                onTap: () =>
-                    ImportExportUtils.exportCardCollections(collections),
+                // onTap: () =>
+                //     ImportExportUtils.exportCardCollections(collections),
+                onTap: exportCards,
               ),
               SettingsTile(
                 icon: Icons.privacy_tip,
