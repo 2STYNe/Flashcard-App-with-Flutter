@@ -8,25 +8,26 @@ import 'package:provider/provider.dart';
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
-  //TODO: give functionality to the other setting tiles
   @override
   Widget build(BuildContext context) {
     CardProvider cardProvider = Provider.of<CardProvider>(context);
     List<CardCollection> collections = cardProvider.collections;
     void importCards() async {
       dynamic result = await ImportExportUtils.importCardCollections();
-      var snackbar;
+      SnackBar snackbar;
       if (result is List<CardCollection>) {
         cardProvider.addCollections(result);
         snackbar = const SnackBar(
           content: Text("Import Successful"),
         );
-      } else if (result is String) {
+      } else {
         snackbar = SnackBar(
           content: Text(result),
         );
       }
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      }
     }
 
     void exportCards() async {
@@ -35,7 +36,9 @@ class SettingPage extends StatelessWidget {
       final snackbar = SnackBar(
         content: Text(message),
       );
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      }
     }
 
     return Scaffold(

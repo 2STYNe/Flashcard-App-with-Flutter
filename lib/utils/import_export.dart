@@ -18,10 +18,6 @@ class ImportExportUtils {
       );
 
       if (outputFilePath != null) {
-        print(jsonString);
-        // File outputFile = File(outputFilePath);
-
-        // outputFile.writeAsStringSync(jsonString);
         return 'Export Successful!';
       } else {
         return 'Export Cancelled';
@@ -41,17 +37,13 @@ class ImportExportUtils {
 
       if (result != null && result.files.isNotEmpty) {
         String filePath = result.files.first.path!;
-        // String jsonString = utf8.
         String jsonString = File(filePath).readAsStringSync();
         List<dynamic> jsonList = jsonDecode(jsonString);
-        print("Import Successful");
         return jsonList.map((e) => CardCollection.fromJson(e)).toList();
       } else {
-        print('Import cancelled');
         return 'Import cancelled';
       }
     } catch (e) {
-      print('Error importing CardCollection: $e');
       return 'Error importing CardCollection: $e';
     }
   }
