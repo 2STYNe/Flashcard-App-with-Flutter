@@ -20,7 +20,9 @@ Welcome to the Flashcard App, a cross-platform application made using flutter de
 ## App Demo
 
 <p align="center">
-	<video controls src="Docs/Demo.mp4" title="App Demo" height="400" align="center"></video>
+
+https://github.com/2STYNe/Flashcard-App-with-Flutter/assets/101346890/78b396aa-6241-48a6-a9c6-3b681de8def1
+ 
 </p>
 
 Figma Design: [Design Link](https://www.figma.com/design/kLoNP6U1XlAV4mdSD4OCzV/2STYNE---Flashcard-App?node-id=0-1&t=7zaO5cykSTgkMb4q-0)
